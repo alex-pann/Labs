@@ -23,8 +23,8 @@ A_s = data.A_s
 
 # !!!! a + b/(x+c)
 
-popt, _ = curve_fit(func1, x_s, A_s, p0=[2400,-600,3900])
-print(popt)
+# popt, _ = curve_fit(func1, x_s, A_s, p0=[2400,-600,3900])
+# print(popt)
 
 
 
@@ -50,7 +50,7 @@ I3 = round(np.poly1d(z)(1964), 1)
 print("Измеренные характеристики диссоциации для йода:", I1, I2, I3)
 
 fig1 = plt.figure("Figure 1")
-plt.plot(x_s, func1(x_s, *popt), 'm_')
+# plt.plot(x_s, func1(x_s, *popt), 'm_')
 plt.plot(x, A, 'b.', markersize=7, label = "Неоновая лампа") 
 plt.plot(x1, A1, 'k.', markersize=7, label = "Ртутная лампа")
 plt.plot(p, A_fit, '--', linewidth = 0.6, color = 'g')
