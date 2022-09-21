@@ -23,10 +23,8 @@ A_s = data.A_s
 
 # !!!! a + b/(x+c)
 
-# popt, _ = curve_fit(func1, x_s, A_s, p0=[2400,-600,3900])
-# print(popt)
-
-
+# popt1, _ = curve_fit(func1, x_s, A_s, p0=[2400,-600,3900])
+# print(popt1)
 
 z = np.polyfit(x_s, A_s, 4) # калибровочная функция
 # A_fit = np.poly1d(z)(x_s)
@@ -49,8 +47,12 @@ I2 = round(np.poly1d(z)(2588), 1)
 I3 = round(np.poly1d(z)(1964), 1)
 print("Измеренные характеристики диссоциации для йода:", I1, I2, I3)
 
+# y_1 = []
+# for t in p:
+#     y_1.append(func1(t, *popt1))
+
 fig1 = plt.figure("Figure 1")
-# plt.plot(x_s, func1(x_s, *popt), 'm_')
+# plt.plot(p, y_1, 'm_')
 plt.plot(x, A, 'b.', markersize=7, label = "Неоновая лампа") 
 plt.plot(x1, A1, 'k.', markersize=7, label = "Ртутная лампа")
 plt.plot(p, A_fit, '--', linewidth = 0.6, color = 'g')
@@ -73,13 +75,21 @@ fig1 = plt.figure("Figure 2")
 y = [1/Ha, 1/Hb, 1/Hg, 1/Hd]
 x3 = [1/4 - 1/9, 1/4 - 1/16, 1/4 - 1/25, 1/4 - 1/36]
 
+popt2, _ = curve_fit(func2, x3, y)
+print(popt2)
+
+y_2 = []
+for t in x3:
+    y_2.append(func2(t, *popt2))
+
 # !!!! y = kx
 d = np.polyfit(x3, y, 1) # аппроксимация
 y_fit = np.poly1d(d)(x3) 
-print("Коэффициенты полученной линейной функцииЖ ", d)
+print("Коэффициент полученной пропорциональности: ", popt2[0])
 
 plt.plot(x3, y, 'k.', markersize=8) 
-plt.plot(x3, y_fit, '--', linewidth = 0.6, color = 'k')
+plt.plot(x3, y_2, '--', linewidth = 0.6, color = 'k')
+# plt.plot(x3, y_fit, '--', linewidth = 0.6, color = 'k')
 plt.minorticks_on()
 
 plt.grid(which = 'major', color='gray', linestyle='-', linewidth=0.5)
